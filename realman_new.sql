@@ -1,0 +1,2 @@
+DROP DATABASE realmanDb;
+CREATE DATABASE realmanDb;
