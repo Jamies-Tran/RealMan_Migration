@@ -44,12 +44,24 @@ CREATE TABLE barber_service(
     FOREIGN KEY (service_category_id) REFERENCES service_category(service_category_id)
 );
 
+#barber service display
+CREATE TABLE barber_service_display(
+	barber_service_display_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    barber_service_id BIGINT NOT NULL,
+    barber_service_display_content LONGTEXT NOT NULL,
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
+    FOREIGN KEY (barber_service_id) REFERENCES barber_service(barber_service_id)
+);
+
 # combo
 CREATE TABLE combo(
 	combo_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     branch_id BIGINT,
-    combo_name VARCHAR(255),
-    combo_price BIGINT,
+    combo_name VARCHAR(255) NOT NULL,
+    combo_price BIGINT NOT NULL,
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
@@ -59,9 +71,8 @@ CREATE TABLE combo(
 # combo service
 CREATE TABLE combo_service(
 	combo_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    combo_id BIGINT,
-    barber_service_id BIGINT,
-    thumbnail LONGTEXT,
+    combo_id BIGINT NOT NULL,
+    barber_service_id BIGINT NOT NULL,
     FOREIGN KEY (combo_id) REFERENCES combo(combo_id),
     FOREIGN KEY (barber_service_id) REFERENCES barber_service(barber_service_id)
 );
