@@ -4,6 +4,8 @@ USE realmanDb;
 CREATE TABLE branch(
 	branch_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     branch_name VARCHAR(255) NOT NULL,
+    branch_manager_code VARCHAR(100),
+    branch_hotline VARCHAR(50),
     branch_thumbnail LONGTEXT,
     branch_street VARCHAR(255) NOT NULL,
     branch_ward VARCHAR(255) NOT NULL,
@@ -13,6 +15,10 @@ CREATE TABLE branch(
     longitude DOUBLE,
     open TIME NOT NULL,
     close TIME NOT NULL,
+    require_staffs INT,
+    max_staffs INT,
+    branch_status_code VARCHAR(100),
+    branch_status_name VARCHAR(256),
     created_at DATETIME,
     updated_at DATETIME,
     created_by VARCHAR(255),
@@ -22,7 +28,6 @@ CREATE TABLE branch(
 # account
 CREATE TABLE account(
 	account_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    branch_id BIGINT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     phone VARCHAR(15),
@@ -32,11 +37,28 @@ CREATE TABLE account(
     thumbnail LONGTEXT,
     dob DATE,
     gender TINYINT,
-    account_status TINYINT,
+    professional_type_code VARCHAR(100),
+    professional_type_name VARCHAR(256),
+    account_status_CODE VARCHAR(100),
+    account_status_NAME VARCHAR(100),
+    created_at DATETIME,
+    updated_at DATETIME,
+    created_by VARCHAR(255),
+    updated_by VARCHAR(255)
+);
+
+CREATE TABLE account_branch(
+	account_branch_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    account_id BIGINT,
+    branch_id BIGINT,
+    working_status_code VARCHAR(100),
+    working_status_name VARCHAR(256),
+	is_manager BOOLEAN,
     created_at DATETIME,
     updated_at DATETIME,
     created_by VARCHAR(255),
     updated_by VARCHAR(255),
+    FOREIGN KEY (account_id) REFERENCES account(account_id),
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id)
 );
 
@@ -44,6 +66,8 @@ CREATE TABLE service_category(
 	service_category_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     service_category_code VARCHAR(20) NOT NULL,
     service_category_name VARCHAR(255),
+    classify_type_code VARCHAR(100),
+    classify_type_name VARCHAR(256),
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
@@ -56,7 +80,7 @@ CREATE TABLE barber_service(
     service_category_id BIGINT,
     barber_service_name VARCHAR(255),
     barber_service_price BIGINT,
-    thumbnail LONGTEXT,
+    barber_service_thumbnail LONGTEXT,
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
