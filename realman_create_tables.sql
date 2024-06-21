@@ -65,12 +65,12 @@ CREATE TABLE account_branch(
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id)
 );
 
-CREATE TABLE service_category(
-	service_category_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    service_category_code VARCHAR(20) NOT NULL,
-    service_category_name VARCHAR(255),
-    classify_type_code VARCHAR(100),
-    classify_type_name VARCHAR(256),
+CREATE TABLE shop_category(
+	shop_category_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    shop_category_code VARCHAR(20) NOT NULL,
+    shop_category_name VARCHAR(255),
+    service_assignment_code VARCHAR(100),
+    service_assignment_name VARCHAR(256),
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
