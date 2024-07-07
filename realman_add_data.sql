@@ -6,4 +6,4 @@ INSERT INTO account(first_name,last_name,staff_code,phone, address, password,rol
 
 # Add category
 INSERT INTO shop_category(shop_category_code, shop_category_name, service_assignment_code, service_assignment_name, created_at, created_by, updated_at, updated_by) VALUE("HAIRCUT", "Cắt Tóc", "STYLIST", "-", null, "-", null, "-");
-INSERT INTO shop_category(shop_category_code, shop_category_name, service_assignment_code, service_assignment_name, created_at, created_by, updated_at, updated_by) VALUE("MASSAGE", "Massage", "MASSAGE", "-",null, "-", null, "-");
+INSERT INTO shop_category(shop_category_code, shop_category_name, service_assignment_code, service_assignment_name, created_at, created_by, updated_at, updated_by) VALUE("MASSAGE", "Massage", "MASSEUR", "-",null, "-", null, "-");

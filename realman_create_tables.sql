@@ -120,7 +120,7 @@ CREATE TABLE combo(
 CREATE TABLE combo_service(
 	combo_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     combo_id BIGINT NOT NULL,
-    barber_service_id BIGINT NOT NULL,
+    shop_service_id BIGINT NOT NULL,
     FOREIGN KEY (combo_id) REFERENCES combo(combo_id),
     FOREIGN KEY (shop_service_id) REFERENCES shop_service(shop_service_id)
 );
@@ -141,8 +141,43 @@ CREATE TABLE branch_display(
 CREATE TABLE branch_service(
 	branch_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     branch_id BIGINT,
-    barber_service_id BIGINT,
+    shop_service_id BIGINT,
     branch_service_price BIGINT,
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id),
-    FOREIGN KEY (barber_service_id) REFERENCES barber_service(barber_service_id)
+    FOREIGN KEY (shop_service_id) REFERENCES shop_service(shop_service_id)
+);
+
+CREATE TABLE weekly_plan (
+	weekly_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    branch_id BIGINT,
+    begin_at DATETIME,
+    complete_at DATETIME,
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
+    FOREIGN KEY (branch_id) REFERENCES branch(branch_id)
+);
+
+CREATE TABLE daily_plan (
+	daily_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    weekly_plan_id BIGINT,
+    date DATETIME,
+    FOREIGN KEY (weekly_plan_id) REFERENCES weekly_plan(weekly_plan_id)
+);
+
+CREATE TABLE daily_plan_service (
+	daily_plan_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	daily_plan_id BIGINT,
+    shop_service_id BIGINT,
+    FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
+    FOREIGN KEY (shop_service_id) REFERENCES shop_service(shop_service_id)
+);
+
+CREATE TABLE daily_plan_account (
+	daily_plan_accoun_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	daily_plan_id BIGINT,
+    account_id BIGINT,
+    FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
+    FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
