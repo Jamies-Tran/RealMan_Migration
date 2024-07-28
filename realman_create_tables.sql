@@ -150,8 +150,8 @@ CREATE TABLE branch_service(
 CREATE TABLE weekly_plan (
 	weekly_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     branch_id BIGINT,
-    begin_at DATETIME,
-    complete_at DATETIME,
+    weekly_plan_status_code VARCHAR(100),
+    weekly_plan_status_name VARCHAR(256),
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
@@ -163,6 +163,10 @@ CREATE TABLE daily_plan (
 	daily_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     weekly_plan_id BIGINT,
     date DATETIME,
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
     FOREIGN KEY (weekly_plan_id) REFERENCES weekly_plan(weekly_plan_id)
 );
 
@@ -170,6 +174,10 @@ CREATE TABLE daily_plan_service (
 	daily_plan_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	daily_plan_id BIGINT,
     shop_service_id BIGINT,
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
     FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
     FOREIGN KEY (shop_service_id) REFERENCES shop_service(shop_service_id)
 );
@@ -178,6 +186,10 @@ CREATE TABLE daily_plan_account (
 	daily_plan_accoun_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	daily_plan_id BIGINT,
     account_id BIGINT,
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
     FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
     FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
