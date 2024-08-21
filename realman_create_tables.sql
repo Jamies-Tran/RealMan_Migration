@@ -1,5 +1,5 @@
 USE realmanDb;
-
+ 
 # branch
 CREATE TABLE branch(
 	branch_id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -143,6 +143,8 @@ CREATE TABLE branch_service(
     branch_id BIGINT,
     shop_service_id BIGINT,
     branch_service_price BIGINT,
+    branch_service_status_code VARCHAR(100) DEFAULT '',
+    branch_service_status_name VARCHAR(256) DEFAULT '',
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id),
     FOREIGN KEY (shop_service_id) REFERENCES shop_service(shop_service_id)
 );
@@ -163,6 +165,8 @@ CREATE TABLE daily_plan (
 	daily_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     weekly_plan_id BIGINT,
     date DATETIME,
+    daily_plan_status_code VARCHAR(100),
+	daily_plan_status_name VARCHAR(256),
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
