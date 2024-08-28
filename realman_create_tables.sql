@@ -151,6 +151,7 @@ CREATE TABLE branch_service(
 
 CREATE TABLE weekly_plan (
 	weekly_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    weekly_plan_name VARCHAR(100) DEFAULT "",
     branch_id BIGINT,
     weekly_plan_status_code VARCHAR(100),
     weekly_plan_status_name VARCHAR(256),
