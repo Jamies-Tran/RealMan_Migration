@@ -84,6 +84,9 @@ CREATE TABLE shop_service(
     shop_service_name VARCHAR(255),
     shop_service_price BIGINT,
     shop_service_thumbnail LONGTEXT,
+    estimate_duration INT,
+    duration_unit_code VARCHAR(100),
+    duration_unit_name VARCHAR(256),
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
@@ -165,7 +168,9 @@ CREATE TABLE weekly_plan (
 CREATE TABLE daily_plan (
 	daily_plan_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     weekly_plan_id BIGINT,
-    date DATETIME,
+    date DATE,
+    day_in_week_code VARCHAR(100),
+    day_in_week_name VARCHAR(256),
     daily_plan_status_code VARCHAR(100),
 	daily_plan_status_name VARCHAR(256),
     created_at DATETIME,
@@ -191,6 +196,8 @@ CREATE TABLE daily_plan_account (
 	daily_plan_accoun_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	daily_plan_id BIGINT,
     account_id BIGINT,
+    shift_code VARCHAR(100) DEFAULT "",
+	shift_name VARCHAR(256) DEFAULT "",
     created_at DATETIME,
     created_by VARCHAR(255),
     updated_at DATETIME,
@@ -198,3 +205,47 @@ CREATE TABLE daily_plan_account (
     FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
     FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
+
+CREATE TABLE booking (
+	booking_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    account_id BIGINT,
+    branch_id BIGINT,
+    daily_plan_id BIGINT,
+    booked_at DATE,
+    booking_code VARCHAR(100) DEFAULT "",
+    booking_method_code VARCHAR(100) DEFAULT "",
+    booking_method_name VARCHAR(256) DEFAULT "",
+    status_code VARCHAR(100) DEFAULT "",
+    status_name VARCHAR(256) DEFAULT "",
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
+    FOREIGN KEY (account_id) REFERENCES account(account_id),
+    FOREIGN KEY (branch_id) REFERENCES branch(branch_id),
+    FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id)
+);
+
+CREATE TABLE booking_service (
+	booking_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    booking_id BIGINT,
+    service_id BIGINT,
+    staff_id BIGINT,
+    pick_up_type_code VARCHAR(100) DEFAULT "",
+    pick_up_type_name VARCHAR(256) DEFAULT "",
+	begin_at TIME,
+    finish_at TIME,
+    actual_begin_at TIME,
+    actual_finished_at TIME,
+    status_code VARCHAR(100) DEFAULT "",
+    status_name VARCHAR(256) DEFAULT "",
+    price BIGINT,
+    created_at DATETIME,
+    created_by VARCHAR(255),
+    updated_at DATETIME,
+    updated_by VARCHAR(255),
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id),
+    FOREIGN KEY (service_id) REFERENCES shop_service(shop_service_id),
+    FOREIGN KEY (staff_id) REFERENCES account(account_id)
+);
+
