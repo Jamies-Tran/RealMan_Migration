@@ -186,7 +186,7 @@ CREATE TABLE daily_plan (
 CREATE TABLE daily_plan_service (
 	daily_plan_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	daily_plan_id BIGINT,
-    shop_service_id BIGINT,
+    branch_service_id BIGINT,
     estimate_duration INT,
     duration_unit_code VARCHAR(100),
     duration_unit_name VARCHAR(250),
@@ -195,7 +195,7 @@ CREATE TABLE daily_plan_service (
     updated_at DATETIME,
     updated_by VARCHAR(255),
     FOREIGN KEY (daily_plan_id) REFERENCES daily_plan(daily_plan_id),
-    FOREIGN KEY (shop_service_id) REFERENCES shop_service(shop_service_id)
+    FOREIGN KEY (branch_service_id) REFERENCES branch_service(branch_service_id)
 );
 
 CREATE TABLE daily_plan_account (
@@ -235,7 +235,7 @@ CREATE TABLE booking (
 CREATE TABLE booking_service (
 	booking_service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     booking_id BIGINT,
-    service_id BIGINT,
+    daily_plan_service_id BIGINT,
     staff_id BIGINT,
     pick_up_type_code VARCHAR(100) DEFAULT "",
     pick_up_type_name VARCHAR(256) DEFAULT "",
@@ -251,7 +251,7 @@ CREATE TABLE booking_service (
     updated_at DATETIME,
     updated_by VARCHAR(255),
     FOREIGN KEY (booking_id) REFERENCES booking(booking_id),
-    FOREIGN KEY (service_id) REFERENCES shop_service(shop_service_id),
+    FOREIGN KEY (daily_plan_service_id) REFERENCES daily_plan_service(daily_plan_service_id),
     FOREIGN KEY (staff_id) REFERENCES account(account_id)
 );
 
